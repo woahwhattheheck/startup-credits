@@ -122,7 +122,10 @@ jobs:
           test "$VALIDATION_CONCLUSION" = success
           trusted_verifier_digest="$(<.github/sourcey-catalog-verifier.sha256)"
           [[ "$trusted_verifier_digest" =~ ^[0-9a-f]{64}$ ]]
-          [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v1:${PR_BASE_SHA}:${PR_HEAD_SHA}:${trusted_verifier_digest}:[0-9a-f]{64}$ ]]
+          trusted_root_digest="$(<.github/sourcey-root-set.digest)"
+          [[ "$trusted_root_digest" =~ ^sha256:[0-9a-f]{64}$ ]]
+          trusted_root_digest="${trusted_root_digest#sha256:}"
+          [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v2:${PR_BASE_SHA}:${PR_HEAD_SHA}:${trusted_verifier_digest}:${trusted_root_digest}:[0-9a-f]{64}$ ]]
 
           # Repo policy requires data pull requests to be data-only. Disable
           # rename detection so both the removed and added paths of a rename
