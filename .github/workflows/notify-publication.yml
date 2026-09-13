@@ -68,6 +68,13 @@ jobs:
             jq -r \
               --arg head "$HEAD_SHA" \
               --arg repository_id "$REPOSITORY_ID" \
+              '.[ ]' \
+              "$associated"
+          )
+          mapfile -t pull_rows < <(
+            jq -r \
+              --arg head "$HEAD_SHA" \
+              --arg repository_id "$REPOSITORY_ID" \
               '.[]
                | select(.merged_at != null
                    and .merge_commit_sha == $head
@@ -120,7 +127,9 @@ jobs:
           [[ "$VALIDATION_CHECK_ID" =~ ^[1-9][0-9]*$ ]]
           test "$VALIDATION_STATUS" = completed
           test "$VALIDATION_CONCLUSION" = success
-          [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v1:${PR_BASE_SHA}:${PR_HEAD_SHA}:[0-9a-f]{64}:[0-9a-f]{64}$ ]]
+          trusted_verifier_digest="$(<.github/sourcey-catalog-verifier.sha256)"
+          [[ "$trusted_verifier_digest" =~ ^[0-9a-f]{64}$ ]]
+          [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v1:${PR_BASE_SHA}:${PR_HEAD_SHA}:${trusted_verifier_digest}:[0-9a-f]{64}$ ]]
 
           # Repo policy requires data pull requests to be data-only. Disable
           # rename detection so both the removed and added paths of a rename
