@@ -123,6 +123,7 @@ jobs:
           HEAD_REVISION: ${{ github.event.pull_request.head.sha }}
           PULL_REQUEST_NUMBER: ${{ github.event.pull_request.number }}
         run: |
+          set -o pipefail
           verified_at="$(node -p 'new Date().toISOString()')"
           trusted_root_digest="$(<trusted/.github/sourcey-root-set.digest)"
           trusted/.github/catalog-verifier/node_modules/.bin/sourcey-catalog-verify \
