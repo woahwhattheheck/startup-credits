@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:40:57.443Z
   category: hosting-infra
 profile:
+  summary: DigitalOcean provides cloud infrastructure and developer services with a startup program focused on early-stage and AI-native companies.
   description: DigitalOcean Startups is a global startup program providing cloud infrastructure credits, 15 months of free support, and technical guidance to help early-stage ventures scale.
   links:
     site: https://www.digitalocean.com/startups
@@ -31,23 +32,23 @@ offers:
       - up-to-1-000-in-credits-via-digitalocean-hatch-direct-tier
       - 20-000-in-cloud-credits-and-partner-perks-via-digitalocean-hatch-partner-tier
     title: DigitalOcean Startups Program
-    summary: Eligible early-stage startups receive DigitalOcean cloud infrastructure credits for 12 months, 15 months of free Standard-tier paid support, expert one-on-one guidance, and startup community perks.
+    summary: Eligible startups receive a partner-determined amount of DigitalOcean credits for the program term plus support and technical guidance; participants generally have a $10,000 monthly credit limit, and credits exclude GPU products and third-party model-inference services.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:40:57.443Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: A registered DigitalOcean team account with a matching company email and valid credit card is required; usage outside qualifying program services or above program limits is charged separately.
       benefits:
         - benefit_id: ben_primary
-          description: 12 months of cloud credits (amount varies) + 15 months free Standard-tier support
+          description: Partner-determined DigitalOcean infrastructure credits for the program term, generally subject to a $10,000 monthly credit limit, plus 15 months of free Standard-tier support
           kind: other
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Must have raised $10M or less, have a corporate website and matching business email address, create a DigitalOcean team account, and not have received prior DigitalOcean credits. Service-based companies are ineligible.
+        statement: Must have raised $10M or less, have a company website and matching business email address, create a registered DigitalOcean team account, and not have used prior DigitalOcean startup credits. Service-based companies such as consulting, web or app development, and marketing agencies are ineligible; DigitalOcean prioritizes AI-native startups.
         reason: not-machine-evaluable
     roles:
       terms_authority_entity_id: ent_01kyh8fpe29kn3bm05h7kyqyka
