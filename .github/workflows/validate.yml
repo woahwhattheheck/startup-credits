@@ -76,6 +76,7 @@ jobs:
           verifier="trusted/.github/catalog-verifier/node_modules/.bin/sourcey-catalog-verify"
           taxonomy="trusted/.github/catalog-verifier/node_modules/@sourcey/catalog-verifier/taxonomy.json"
           curl --fail-with-body --silent --show-error --max-time 30 \
+            --retry 4 --retry-all-errors --retry-max-time 90 \
             https://api.sourcey.com/v1/release \
             --output "$RUNNER_TEMP/sourcey-live-release.json"
           live_parent_release_id="$(
@@ -99,6 +100,7 @@ jobs:
             --pull-request "$PULL_REQUEST_NUMBER" \
             > "$RUNNER_TEMP/sourcey-identity-query.json"
           curl --fail-with-body --silent --show-error --max-time 30 \
+            --retry 4 --retry-all-errors --retry-max-time 90 \
             -H 'content-type: application/json' \
             --data-binary @"$RUNNER_TEMP/sourcey-identity-query.json" \
             https://api.sourcey.com/v1/catalog-verifier/identity-contexts \
