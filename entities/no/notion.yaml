@@ -33,8 +33,7 @@ offers:
   - offer_id: off_01kyyts97ws635fv7kpb4ce6qh
     program_id: prg_01kyyts97wr01a0f3as5qcgatc
     offer_slug: 6-months-free-with-notion-for-startups-partner-tier
-    offer_slug_aliases:
-      - free-credits-with-notion-for-startups-direct-apply
+    offer_slug_aliases: []
     title: 6 months of Notion Business free with Notion AI
     summary: Partner-affiliated startups that meet Notion's program requirements can receive 6 months free of the Business plan with Notion AI included.
     lifecycle:
@@ -72,7 +71,8 @@ offers:
   - offer_id: off_01m2cxn89edzp6cr9y7n8znd2h
     program_id: prg_01kyyts97wr01a0f3as5qcgatc
     offer_slug: 3-months-free-with-notion-for-startups-direct-tier
-    offer_slug_aliases: []
+    offer_slug_aliases:
+      - free-credits-with-notion-for-startups-direct-apply
     title: 3 months of Notion Business free with Notion AI
     summary: Verified startups without a listed partner can receive 3 months free of the Business plan with Notion AI included.
     lifecycle:
