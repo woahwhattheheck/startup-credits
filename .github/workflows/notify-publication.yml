@@ -121,9 +121,10 @@ jobs:
           test "$VALIDATION_CONCLUSION" = success
           [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v1:${PR_BASE_SHA}:${PR_HEAD_SHA}:[0-9a-f]{64}:[0-9a-f]{64}$ ]]
 
-          # Repo policy requires data pull requests to be data-only. Compare
-          # Git raw deltas so status, full old/new blob IDs, mode, and path all
-          # match the exact candidate that sourcey/validation approved.
+          # Repo policy requires data pull requests to be data-only. Disable
+          # rename detection so both the removed and added paths of a rename
+          # are checked instead of allowing a non-Entity source path to hide
+          # behind an Entity destination path.
           changed_entities=0
           while IFS= read -r -d '' path; do
             ((changed_entities += 1))
@@ -131,7 +132,7 @@ jobs:
               echo "Validated pull request contains a non-Entity path: $path" >&2
               exit 1
             fi
-          done < <(git diff --name-only -z "$PR_BASE_SHA" "$PR_HEAD_SHA")
+          done < <(git diff --no-renames --name-only -z "$PR_BASE_SHA" "$PR_HEAD_SHA")
           if [[ "$changed_entities" -eq 0 ]]; then
             echo "Validated pull request has no Entity delta." >&2
             exit 1
