@@ -68,13 +68,6 @@ jobs:
             jq -r \
               --arg head "$HEAD_SHA" \
               --arg repository_id "$REPOSITORY_ID" \
-              '.[ ]' \
-              "$associated"
-          )
-          mapfile -t pull_rows < <(
-            jq -r \
-              --arg head "$HEAD_SHA" \
-              --arg repository_id "$REPOSITORY_ID" \
               '.[]
                | select(.merged_at != null
                    and .merge_commit_sha == $head
