@@ -13,7 +13,7 @@ entity:
       valid_from: 2026-08-01T13:50:00.000Z
   category: productivity
 profile:
-  description: Build Custom Agents, search across all your apps, and automate busywork. The AI workspace where teams get more done, faster.
+  description: Notion is an AI workspace for docs, knowledge, projects, search, and collaboration.
   links:
     site: https://notion.com
 sources:
@@ -26,7 +26,7 @@ programs:
     program_slug: notion-for-startups
     program_slug_aliases: []
     title: Notion for Startups
-    summary: Notion's startup program gives eligible startups months of the Business plan free with Notion AI included, directly or through its partner network.
+    summary: Eligible non-paying companies can receive 1, 3, or 6 months of Notion Business with Notion AI, with the tier determined by partner affiliation, startup profile, size, and verification.
     source_ids:
       - src_07820a933d686954cf7497bdcb4c6f1a2c17d2e7c62d387db152a2e40286bfb4
 offers:
@@ -35,49 +35,104 @@ offers:
     offer_slug: 6-months-free-with-notion-for-startups-partner-tier
     offer_slug_aliases:
       - free-credits-with-notion-for-startups-direct-apply
-    title: Up to 6 months of Notion Business free with Notion AI
-    summary: Eligible startups get up to 6 months free of the Notion Business plan with Notion AI included, with the tier depending on the startup's profile.
+    title: 6 months of Notion Business free with Notion AI
+    summary: Partner-affiliated startups that meet Notion's program requirements can receive 6 months free of the Business plan with Notion AI included.
     lifecycle:
       status: active
       effective_from: 2026-08-01T08:15:42.605Z
     economics:
       benefits:
         - benefit_id: ben_01
-          description: Up to 6 months free of the Notion Business plan with Notion AI included
+          description: 6 months free of the Notion Business plan with Notion AI included
           duration:
             kind: up-to
             value: P6M
           kind: free-service
           service: Notion Business plan with Notion AI
         - benefit_id: ben_02
-          description: Notion Perks with exclusive software discounts and one complimentary session with a consultant to set up the Notion workspace
+          description: Notion Perks plus one complimentary session with a Notion Certified Consultant
           kind: other
       consideration:
         kind: none
     eligibility:
       rule:
-        kind: all
-        rules:
-          - criterion_id: cri_01
-            fact: company.is_current_customer
-            kind: predicate
-            operator: eq
-            statement: A non-paying Notion customer with a valid work email.
-            value:
-              type: boolean
-              value: false
-          - criterion_id: cri_02
-            kind: manual
-            reason: external-verification
-            statement: Has not received any previous Notion promotions.
-          - criterion_id: cri_03
-            fact: company.employee_count
-            kind: predicate
-            operator: lt
-            statement: Fewer than 100 employees.
-            value:
-              type: number
-              value: 100
+        kind: manual
+        criterion_id: cri_01
+        statement: Must be a non-paying Notion customer with a valid work email, fewer than 100 employees, no previous Notion promotion, and affiliation with a select Notion startup partner; a public company website and company-domain email are required for verification.
+        reason: external-verification
+    roles:
+      terms_authority_entity_id: ent_01kyyts97tbppvx69rh3v86sk2
+      access_operator_entity_id: ent_01kyyts97tbppvx69rh3v86sk2
+    access:
+      availability: public
+      method: form
+      url: https://www.notion.com/startups
+    source_ids:
+      - src_07820a933d686954cf7497bdcb4c6f1a2c17d2e7c62d387db152a2e40286bfb4
+  - offer_id: off_01m2cxn89edzp6cr9y7n8znd2h
+    program_id: prg_01kyyts97wr01a0f3as5qcgatc
+    offer_slug: 3-months-free-with-notion-for-startups-direct-tier
+    offer_slug_aliases: []
+    title: 3 months of Notion Business free with Notion AI
+    summary: Verified startups without a listed partner can receive 3 months free of the Business plan with Notion AI included.
+    lifecycle:
+      status: active
+      effective_from: 2026-09-13T00:00:00.000Z
+    economics:
+      benefits:
+        - benefit_id: ben_01
+          description: 3 months free of the Notion Business plan with Notion AI included
+          duration:
+            kind: up-to
+            value: P3M
+          kind: free-service
+          service: Notion Business plan with Notion AI
+        - benefit_id: ben_02
+          description: Notion Perks plus one complimentary session with a Notion Certified Consultant
+          kind: other
+      consideration:
+        kind: none
+    eligibility:
+      rule:
+        kind: manual
+        criterion_id: cri_01
+        statement: Must be a non-paying Notion customer with a valid work email, fewer than 100 employees, no previous Notion promotion, a valid business website, and a company-domain email; the 3-month tier is intended for verified startups building scalable tech-related products or services.
+        reason: external-verification
+    roles:
+      terms_authority_entity_id: ent_01kyyts97tbppvx69rh3v86sk2
+      access_operator_entity_id: ent_01kyyts97tbppvx69rh3v86sk2
+    access:
+      availability: public
+      method: form
+      url: https://www.notion.com/startups
+    source_ids:
+      - src_07820a933d686954cf7497bdcb4c6f1a2c17d2e7c62d387db152a2e40286bfb4
+  - offer_id: off_01m2cxn89jzmran7axcaf20wqg
+    program_id: prg_01kyyts97wr01a0f3as5qcgatc
+    offer_slug: 1-month-free-with-notion-for-startups-smb-tier
+    offer_slug_aliases: []
+    title: 1 month of Notion Business free with Notion AI
+    summary: Smaller teams, service-based businesses, or applicants that do not meet the startup-verification criteria may receive a 1-month Business-plan offer with Notion AI included.
+    lifecycle:
+      status: active
+      effective_from: 2026-09-13T00:00:00.000Z
+    economics:
+      benefits:
+        - benefit_id: ben_01
+          description: 1 month free of the Notion Business plan with Notion AI included
+          duration:
+            kind: up-to
+            value: P1M
+          kind: free-service
+          service: Notion Business plan with Notion AI
+      consideration:
+        kind: none
+    eligibility:
+      rule:
+        kind: manual
+        criterion_id: cri_01
+        statement: Applies to non-paying applicants such as teams under 10 employees, SMBs or service-based businesses, or cases where startup eligibility cannot be fully verified; final tier assignment is determined by Notion.
+        reason: vendor-discretion
     roles:
       terms_authority_entity_id: ent_01kyyts97tbppvx69rh3v86sk2
       access_operator_entity_id: ent_01kyyts97tbppvx69rh3v86sk2
