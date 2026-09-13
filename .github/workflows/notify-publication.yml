@@ -12,7 +12,7 @@ permissions:
   pull-requests: read
 
 concurrency:
-  group: notify-publication-${{ github.sha }}
+  group: notify-publication-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
