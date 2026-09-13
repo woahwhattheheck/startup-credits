@@ -139,14 +139,18 @@ jobs:
             exit 1
           fi
 
-          validated_delta="$RUNNER_TEMP/validated-entity-delta.raw"
-          published_delta="$RUNNER_TEMP/published-entity-delta.raw"
+          # The published commit must carry exactly the validated tree delta,
+          # not merely equivalent Entity blobs. This prevents a custom merge
+          # commit from smuggling any extra non-Entity path beside the
+          # validated data change before the Sourcey dispatch boundary.
+          validated_delta="$RUNNER_TEMP/validated-tree-delta.raw"
+          published_delta="$RUNNER_TEMP/published-tree-delta.raw"
           git diff --raw --no-renames --full-index --abbrev=40 \
-            "$PR_BASE_SHA" "$PR_HEAD_SHA" -- entities > "$validated_delta"
+            "$PR_BASE_SHA" "$PR_HEAD_SHA" > "$validated_delta"
           git diff --raw --no-renames --full-index --abbrev=40 \
-            "$BASE_SHA" "$HEAD_SHA" -- entities > "$published_delta"
+            "$BASE_SHA" "$HEAD_SHA" > "$published_delta"
           if ! cmp -s "$validated_delta" "$published_delta"; then
-            echo "Published Entity status/blob identities differ from the validated pull request." >&2
+            echo "Published status/blob identities differ from the validated pull request." >&2
             diff -u "$validated_delta" "$published_delta" >&2 || true
             exit 1
           fi
