@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:35:15.230Z
   category: hosting-infra
 profile:
+  summary: Vercel provides cloud infrastructure, deployment, AI, and frontend developer services for web applications.
   description: Vercel enables founders to deploy faster, scale globally, and ship world-class AI products.
   links:
     site: https://vercel.com
@@ -22,23 +23,28 @@ offers:
     offer_slug: vercel-for-startups
     offer_slug_aliases: []
     title: Vercel for Startups
-    summary: Eligible startups affiliated with an approved partner can receive up to $30,000 in Vercel credits issued over 12 months, plus Slack access, networking, private events, and marketing opportunities.
+    summary: Eligible partner-affiliated startups can receive a Vercel Flexible Commitment Amount of up to $30,000 for one year or until exhausted, with Enterprise-tier access and additional startup-program benefits.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:35:15.230Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: A valid payment method is required; usage beyond the Flexible Commitment Amount or after the program term is billed at standard rates.
       benefits:
         - benefit_id: ben_primary
-          description: Up to $30,000 in credits
-          kind: other
+          description: Up to $30,000 Flexible Commitment Amount for eligible Vercel services for up to one year; for startups accepted on or after August 6, 2026, no more than 50% of each month's credit amount may be applied to AI Gateway usage.
+          kind: credit
+          value:
+            kind: up-to
+            amount:
+              currency: USD
+              minor_units: 3000000
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Must be affiliated with an approved Startups Partner, raised Series A or less, applied within 12 months of the most recent funding round, have not previously received Vercel for Startups credits, provide partner proof, and have matching domain and email.
+        statement: Must be affiliated with an approved Startups Partner, have raised Series A or less, apply within 12 months of the most recent funding round, have not previously received Vercel for Startups credits, provide proof of partner affiliation, and have a company website with a matching-domain email address.
         reason: not-machine-evaluable
     roles:
       terms_authority_entity_id: ent_01kyh8fpe5dk9hex187x4g03fn
