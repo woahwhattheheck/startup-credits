@@ -44,6 +44,23 @@ jobs:
           BASE_REVISION: ${{ github.event.pull_request.base.sha }}
         working-directory: candidate
         run: git fetch --filter=blob:none --no-tags https://github.com/sourcey/startup-credits.git "$BASE_REVISION"
+      - name: Require surviving Entity paths to be regular files
+        env:
+          BASE_REVISION: ${{ github.event.pull_request.base.sha }}
+          HEAD_REVISION: ${{ github.event.pull_request.head.sha }}
+        working-directory: candidate
+        run: |
+          set -euo pipefail
+          while IFS= read -r -d '' path; do
+            mode="$(git ls-tree "$HEAD_REVISION" -- "$path" | awk 'NR == 1 { print $1 }')"
+            if [ "$mode" != 100644 ]; then
+              echo "Entity path must be a regular non-executable file: $path mode=${mode:-ABSENT}" >&2
+              exit 1
+            fi
+          done < <(
+            git diff --no-renames --diff-filter=AMT --name-only -z \
+              "$BASE_REVISION" "$HEAD_REVISION" -- entities
+          )
       - name: Install the exact Sourcey Catalog Verifier
         run: |
           npm ci --prefix trusted/.github/catalog-verifier \
