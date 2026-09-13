@@ -10,36 +10,52 @@ entity:
       valid_from: 2026-07-27T07:41:47.020Z
   category: hosting-infra
 profile:
+  summary: Microsoft provides Azure cloud infrastructure, AI, developer tooling, and go-to-market resources for startups and enterprises.
   description: Microsoft provides cloud services, AI platforms, and developer tools to help startups build, scale, and sell enterprise-grade solutions.
   links:
     site: https://www.microsoft.com/en-us/startups
 sources:
   - source_id: src_5467d9d11a71c3fc425e6052f08f7f97289eda1b2fec74c3f99cf6dd80b52f28
     url: https://www.microsoft.com/en-us/startups
+  - source_id: src_7cc178d763cbf592edee73e7d4f421357da80141aafbb0667dd8789f23e0e1f4
+    url: https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview
+  - source_id: src_a62dae6ca9d10dcb4419c05b11a5d6d336ca600753efa027701ac83662995d3a
+    url: https://learn.microsoft.com/en-us/startups/benefits
 programs: []
 offers:
   - offer_id: off_01kyh8fpe3y9qhtr0stf4myyrq
     offer_slug: microsoft-for-startups-program
     offer_slug_aliases: []
     title: Microsoft for Startups Program
-    summary: Access AI models, developer tools, expert guidance, and up to $150,000 in credits across eligible Azure services to support early development through production workloads.
+    summary: Eligible startups can unlock up to $150,000 in Startup credits over time, while eligible Investor Network-backed startups may unlock higher-value credits and support.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:41:47.020Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: The cited sources do not establish a separate participation charge.
       benefits:
         - benefit_id: ben_primary
-          description: Up to $150,000 in credits
-          kind: other
+          description: Up to $150,000 in Startup credits as the startup demonstrates verified progress, service adoption, and sustained Azure usage
+          kind: credit
+          value:
+            kind: up-to
+            amount:
+              currency: USD
+              minor_units: 15000000
     eligibility:
       rule:
-        kind: manual
-        criterion_id: cri_requirement_01
-        statement: Designed for founders and startups looking to build, scale, and sell on Azure.
-        reason: not-machine-evaluable
+        kind: all
+        rules:
+          - kind: manual
+            criterion_id: cri_company
+            statement: Must develop a company-owned software-based product or service, be privately held and for-profit, and be headquartered where Azure services are available.
+            reason: external-verification
+          - kind: manual
+            criterion_id: cri_exclusions
+            statement: Must not have received more than $350,000 in lifetime free Azure credits, raised Series C funding or later, or be an educational institution, government organization, consultancy, agency, or cryptocurrency-mining business.
+            reason: external-verification
     roles:
       terms_authority_entity_id: ent_01kyh8fpe3n3yye39kmzvy410z
       access_operator_entity_id: ent_01kyh8fpe3n3yye39kmzvy410z
@@ -49,3 +65,5 @@ offers:
       url: https://www.microsoft.com/en-us/startups
     source_ids:
       - src_5467d9d11a71c3fc425e6052f08f7f97289eda1b2fec74c3f99cf6dd80b52f28
+      - src_7cc178d763cbf592edee73e7d4f421357da80141aafbb0667dd8789f23e0e1f4
+      - src_a62dae6ca9d10dcb4419c05b11a5d6d336ca600753efa027701ac83662995d3a

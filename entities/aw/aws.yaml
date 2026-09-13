@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:35:36.165Z
   category: hosting-infra
 profile:
+  summary: AWS provides cloud infrastructure, data, AI, and developer services for startups and established organizations.
   description: Amazon Web Services provides cloud infrastructure, data services, and AI/ML tools to help startups build and scale.
   links:
     site: https://aws.amazon.com/startups/
@@ -67,7 +68,7 @@ offers:
             statement: Company was founded within the last 10 years.
           - kind: manual
             criterion_id: portfolio_access
-            statement: Must be pre-Series B and apply with an AWS Activate Provider Org ID; AWS also reviews prior credits and other application requirements.
+            statement: Must be pre-Series B, use an AWS account on a paid tier, apply with an AWS Activate Provider Org ID, and be new to Activate Credits or request more credits than previously received.
             reason: external-verification
     roles:
       terms_authority_entity_id: ent_01kyh8fpe10b164tj935t8k5zb
