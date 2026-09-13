@@ -122,7 +122,29 @@ jobs:
           test "$VALIDATION_CONCLUSION" = success
           trusted_verifier_digest="$(<.github/sourcey-catalog-verifier.sha256)"
           [[ "$trusted_verifier_digest" =~ ^[0-9a-f]{64}$ ]]
-          [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v1:${PR_BASE_SHA}:${PR_HEAD_SHA}:${trusted_verifier_digest}:[0-9a-f]{64}$ ]]
+          curl --fail-with-body --silent --show-error --max-time 30 \
+            --retry 4 --retry-all-errors --retry-max-time 90 \
+            https://api.sourcey.com/v1/release \
+            --output "$RUNNER_TEMP/sourcey-live-release.json"
+          live_parent_release_id="$(
+            jq -er '.release_id | select(test("^sha256:[a-f0-9]{64}$"))' \
+              "$RUNNER_TEMP/sourcey-live-release.json"
+          )"
+          live_root_digest="$(
+            jq -er '.descriptor.snapshot_core.root_set_digest
+              | select(test("^sha256:[a-f0-9]{64}$"))' \
+              "$RUNNER_TEMP/sourcey-live-release.json"
+          )"
+          trusted_root_digest="$(<.github/sourcey-root-set.digest)"
+          test "$live_root_digest" = "$trusted_root_digest"
+          live_parent_release_digest="${live_parent_release_id#sha256:}"
+          policy_binding_digest="$(
+            printf 'base=%s\nhead=%s\nverifier=%s\nrelease=%s\n' \
+              "$PR_BASE_SHA" "$PR_HEAD_SHA" "$trusted_verifier_digest" \
+              "$live_parent_release_digest" \
+              | sha256sum | awk '{print $1}'
+          )"
+          [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v2:${policy_binding_digest}:[0-9a-f]{64}$ ]]
 
           # Repo policy requires data pull requests to be data-only. Disable
           # rename detection so both the removed and added paths of a rename

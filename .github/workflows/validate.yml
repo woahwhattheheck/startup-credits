@@ -134,6 +134,8 @@ jobs:
               | select(test("^sha256:[a-f0-9]{64}$"))' \
               "$RUNNER_TEMP/sourcey-identity-response.json"
           )"
+          echo "SOURCEY_LIVE_PARENT_RELEASE_DIGEST=${live_parent_release_id#sha256:}" \
+            >> "$GITHUB_ENV"
           echo "SOURCEY_IDENTITY_CONTEXT_DIGEST=${identity_context_digest#sha256:}" \
             >> "$GITHUB_ENV"
       - name: Validate only the changed identity closure
@@ -187,9 +189,17 @@ jobs:
         run: |
           verifier_digest="$(<trusted/.github/sourcey-catalog-verifier.sha256)"
           [[ "$verifier_digest" =~ ^[a-f0-9]{64}$ ]]
+          live_parent_release_digest="${SOURCEY_LIVE_PARENT_RELEASE_DIGEST:-$(printf '%064d' 0)}"
+          [[ "$live_parent_release_digest" =~ ^[a-f0-9]{64}$ ]]
           identity_context_digest="${SOURCEY_IDENTITY_CONTEXT_DIGEST:-$(printf '%064d' 0)}"
           [[ "$identity_context_digest" =~ ^[a-f0-9]{64}$ ]]
-          external_id="sourcey-validation-v1:${BASE_REVISION}:${HEAD_REVISION}:${verifier_digest}:${identity_context_digest}"
+          policy_binding_digest="$(
+            printf 'base=%s\nhead=%s\nverifier=%s\nrelease=%s\n' \
+              "$BASE_REVISION" "$HEAD_REVISION" "$verifier_digest" \
+              "$live_parent_release_digest" \
+              | sha256sum | awk '{print $1}'
+          )"
+          external_id="sourcey-validation-v2:${policy_binding_digest}:${identity_context_digest}"
           details_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           checks="$RUNNER_TEMP/sourcey-validation-checks.json"
           gh api --paginate --slurp --method GET \
