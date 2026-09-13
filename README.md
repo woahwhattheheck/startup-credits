@@ -1,5 +1,7 @@
 <h1 align="center">Startup Credits</h1>
 
+[![Powered by RustChain](https://img.shields.io/badge/Powered%20by-RustChain-orange)](https://rustchain.org)
+
 <p align="center">
   <b>The open registry of startup programs</b><br>
   <sub><em>Never pay the stranger price</em></sub>
