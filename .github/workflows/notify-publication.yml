@@ -42,7 +42,7 @@ jobs:
           [[ "$HEAD_SHA" =~ $sha_re ]]
           [[ "$REPOSITORY_ID" =~ ^[0-9]+$ ]]
 
-          # Publication is allowed only for one ordinary main commit.  This
+          # Publication is allowed only for one ordinary main commit. This
           # excludes force pushes, direct multi-commit publication, and ref
           # rewrites before any write-capable Sourcey credential is exposed.
           jq -e \
@@ -86,7 +86,7 @@ jobs:
           [[ "$PR_BASE_SHA" =~ $sha_re ]]
           [[ "$PR_HEAD_SHA" =~ $sha_re ]]
 
-          # Bind the candidate bytes even for fork pull requests.  GitHub keeps
+          # Bind the candidate bytes even for fork pull requests. GitHub keeps
           # the base-repository refs/pull/<n>/head ref for the reviewed head.
           git cat-file -e "${PR_BASE_SHA}^{commit}" 2>/dev/null \
             || git fetch --no-tags origin "$PR_BASE_SHA"
@@ -121,9 +121,9 @@ jobs:
           test "$VALIDATION_CONCLUSION" = success
           [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v1:${PR_BASE_SHA}:${PR_HEAD_SHA}:[0-9a-f]{64}:[0-9a-f]{64}$ ]]
 
-          # Repo policy requires data pull requests to be data-only.  Compare
-          # Git raw deltas so status, old blob, new blob, mode, and path must
-          # all match the exact candidate that sourcey/validation approved.
+          # Repo policy requires data pull requests to be data-only. Compare
+          # Git raw deltas so status, full old/new blob IDs, mode, and path all
+          # match the exact candidate that sourcey/validation approved.
           changed_entities=0
           while IFS= read -r -d '' path; do
             ((changed_entities += 1))
@@ -139,9 +139,9 @@ jobs:
 
           validated_delta="$RUNNER_TEMP/validated-entity-delta.raw"
           published_delta="$RUNNER_TEMP/published-entity-delta.raw"
-          git diff --raw --no-renames --full-index \
+          git diff --raw --no-renames --full-index --abbrev=40 \
             "$PR_BASE_SHA" "$PR_HEAD_SHA" -- entities > "$validated_delta"
-          git diff --raw --no-renames --full-index \
+          git diff --raw --no-renames --full-index --abbrev=40 \
             "$BASE_SHA" "$HEAD_SHA" -- entities > "$published_delta"
           if ! cmp -s "$validated_delta" "$published_delta"; then
             echo "Published Entity status/blob identities differ from the validated pull request." >&2
