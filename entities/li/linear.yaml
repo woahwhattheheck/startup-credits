@@ -22,24 +22,27 @@ offers:
     offer_slug: linear-startup-program
     offer_slug_aliases: []
     title: Linear Startup Program
-    summary: Eligible early-stage startups affiliated with an official Linear partner can get up to 6 months of free access to Linear's Basic and Business plans.
+    summary: Eligible early-stage startups affiliated with an official Linear partner receive up to 6 months of free access to Linear's Business plan.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:36:51.894Z
     economics:
       consideration:
-        kind: unknown
-        description: The source record did not establish separate consideration.
+        kind: none
       benefits:
         - benefit_id: ben_primary
-          description: Up to 6 months free
-          kind: other
+          description: Up to 6 months free of Linear Business
+          kind: free-service
+          service: Linear Business plan
+          duration:
+            kind: up-to
+            value: P6M
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Must be a non-paying Linear user, have fewer than 50 employees, and be affiliated with an official Linear partner.
-        reason: not-machine-evaluable
+        statement: Must be affiliated with an official Linear startup partner, be a non-paying Linear user with fewer than 50 employees, and redeem through the partner link or code as a workspace admin.
+        reason: external-verification
     roles:
       terms_authority_entity_id: ent_01kyh8fpe304e5cj5ef7835m3q
       access_operator_entity_id: ent_01kyh8fpe304e5cj5ef7835m3q

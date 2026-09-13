@@ -22,27 +22,45 @@ offers:
     offer_slug: early-stage-startup-program
     offer_slug_aliases: []
     title: Early Stage Startup Program
-    summary: Eligible early-stage startups get 93% off Intercom in year one (helpdesk from $33/month) plus 1 year of Fin AI Agent free, stepping down to 50% off in year two and 25% off in year three.
+    summary: Eligible startups get Intercom's Advanced plan at stepped startup pricing: 93% off in year one, 50% off in year two, and 25% off in year three, plus included Fin AI, Copilot, Proactive Support Plus, and Pro allowances that step down over time.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:43:43.674Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: The two-seat base package is currently $33/month in year one, $233/month in year two, and $350/month in year three; usage outside included allowances and excluded channels can be charged separately.
       benefits:
-        - benefit_id: ben_primary
-          description: 93% off Year 1 + 1 year Fin free
+        - benefit_id: ben_year_1_discount
+          description: 93% off the eligible Intercom subscription and eligible usage-based costs in year one
           kind: discount
           percentage:
             kind: exact
             basis_points: 9300
+        - benefit_id: ben_year_2_discount
+          description: 50% off the eligible Intercom subscription and eligible usage-based costs in year two
+          kind: discount
+          percentage:
+            kind: exact
+            basis_points: 5000
+        - benefit_id: ben_year_3_discount
+          description: 25% off the eligible Intercom subscription and eligible usage-based costs in year three
+          kind: discount
+          percentage:
+            kind: exact
+            basis_points: 2500
+        - benefit_id: ben_fin_allowance
+          description: Included Fin usage steps from 300 outcomes and 15 qualifications per month in year one to 150 outcomes and 15 qualifications in year two and 75 outcomes and 15 qualifications in year three.
+          kind: other
+        - benefit_id: ben_operator_allowance
+          description: Pro includes 2,000 Operator credits per month across all three program years; overages are charged at list price.
+          kind: other
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Must have up to $10M in funding, fewer than 15 employees, and be a new Intercom customer.
-        reason: not-machine-evaluable
+        statement: Must have raised up to $10M in funding, have fewer than 15 employees, and not currently be an Intercom customer. Approval is required and approved applicants must activate on the vendor's stated timeline.
+        reason: external-verification
     roles:
       terms_authority_entity_id: ent_01kyh8fpe3zwep1wr3kj7bv4zx
       access_operator_entity_id: ent_01kyh8fpe3zwep1wr3kj7bv4zx
