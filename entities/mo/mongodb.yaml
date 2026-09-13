@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:41:47.670Z
   category: databases
 profile:
+  summary: MongoDB provides a developer data platform and startup program spanning Atlas database credits, AI retrieval tooling, and technical guidance.
   description: MongoDB for Startups offers free MongoDB Atlas credits, Voyage AI tokens, one-on-one technical advice, co-marketing opportunities, and access to our partner network.
   links:
     site: https://www.mongodb.com
@@ -32,17 +33,17 @@ offers:
     offer_slug: mongodb-for-startups
     offer_slug_aliases: []
     title: MongoDB for Startups
-    summary: Access MongoDB Atlas credits, Voyage AI tokens, technical advice, one-on-one expert guidance, and partner network access for early-stage startups.
+    summary: Eligible startups receive MongoDB Atlas credits, Voyage AI access, technical guidance, and partner resources; accepted startups have 12 months to activate their promo code and 12 months after activation to use Atlas credits.
     lifecycle:
       status: active
       effective_from: 2026-08-01T06:51:28.753Z
     economics:
       benefits:
         - benefit_id: ben_01
-          description: MongoDB Atlas credits
+          description: MongoDB Atlas credits, usable for 12 months after promo-code activation
           kind: other
         - benefit_id: ben_02
-          description: Voyage AI tokens for high-performance retrieval and embeddings
+          description: Voyage AI access for high-performance retrieval, embeddings, and reranking
           kind: other
         - benefit_id: ben_03
           description: Exclusive access to a one-on-one session with a professional services expert for best practices and startup guidance
@@ -82,10 +83,9 @@ offers:
               type: string
               value: agency_or_dev_shop
           - criterion_id: cri_04
-            fact: company.is_current_customer
-            kind: predicate
-            operator: absent
-            statement: Must not be a previous participant accepted into MongoDB for Startups
+            kind: manual
+            reason: external-verification
+            statement: Must not have previously been accepted into the MongoDB for Startups program; both new and existing MongoDB Atlas users may apply.
           - criterion_id: cri_05
             kind: manual
             reason: external-verification
