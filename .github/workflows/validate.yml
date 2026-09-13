@@ -147,7 +147,6 @@ jobs:
           HEAD_REVISION: ${{ github.event.pull_request.head.sha }}
         working-directory: candidate
         run: |
-          change_base="$(git merge-base "$BASE_REVISION" "$HEAD_REVISION")"
           missing=()
           while IFS= read -r commit; do
             if ! git show -s --format=%B "$commit" \
@@ -156,7 +155,7 @@ jobs:
             fi
           # Merge commits can carry contributor-written conflict-resolution
           # bytes, so their DCO certification must be checked too.
-          done < <(git rev-list "$change_base..$HEAD_REVISION")
+          done < <(git rev-list "$BASE_REVISION..$HEAD_REVISION")
           if (( ${#missing[@]} > 0 )); then
             printf 'Commits missing Signed-off-by certification:\n%s\n' "${missing[*]}" >&2
             exit 1
