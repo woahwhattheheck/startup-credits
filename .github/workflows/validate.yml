@@ -187,9 +187,12 @@ jobs:
         run: |
           verifier_digest="$(<trusted/.github/sourcey-catalog-verifier.sha256)"
           [[ "$verifier_digest" =~ ^[a-f0-9]{64}$ ]]
+          trusted_root_digest="$(<trusted/.github/sourcey-root-set.digest)"
+          [[ "$trusted_root_digest" =~ ^sha256:[a-f0-9]{64}$ ]]
+          root_set_digest="${trusted_root_digest#sha256:}"
           identity_context_digest="${SOURCEY_IDENTITY_CONTEXT_DIGEST:-$(printf '%064d' 0)}"
           [[ "$identity_context_digest" =~ ^[a-f0-9]{64}$ ]]
-          external_id="sourcey-validation-v1:${BASE_REVISION}:${HEAD_REVISION}:${verifier_digest}:${identity_context_digest}"
+          external_id="sourcey-validation-v2:${BASE_REVISION}:${HEAD_REVISION}:${verifier_digest}:${root_set_digest}:${identity_context_digest}"
           details_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           checks="$RUNNER_TEMP/sourcey-validation-checks.json"
           gh api --method GET \
