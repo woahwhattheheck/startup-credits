@@ -14,6 +14,7 @@ permissions:
 concurrency:
   group: notify-publication-${{ github.ref }}
   cancel-in-progress: false
+  queue: max
 
 jobs:
   notify:
