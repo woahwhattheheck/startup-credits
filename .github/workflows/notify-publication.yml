@@ -7,7 +7,9 @@ on:
       - "entities/**/*.yaml"
 
 permissions:
+  checks: read
   contents: read
+  pull-requests: read
 
 concurrency:
   group: notify-publication-${{ github.sha }}
@@ -15,10 +17,146 @@ concurrency:
 
 jobs:
   notify:
-    if: github.event.before != 'ce7e8d351e55eb956f5188bbfe03e9a213b2ba53'
     runs-on: ubuntu-latest
-    timeout-minutes: 2
+    timeout-minutes: 5
     steps:
+      - name: Check out the exact published head
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Bind publication to the validated pull request
+        id: provenance
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+          REPOSITORY_ID: ${{ github.repository_id }}
+        run: |
+          set -euo pipefail
+
+          sha_re='^[0-9a-f]{40}$'
+          [[ "$BASE_SHA" =~ $sha_re ]]
+          [[ "$HEAD_SHA" =~ $sha_re ]]
+          [[ "$REPOSITORY_ID" =~ ^[0-9]+$ ]]
+
+          # Publication is allowed only for one ordinary main commit.  This
+          # excludes force pushes, direct multi-commit publication, and ref
+          # rewrites before any write-capable Sourcey credential is exposed.
+          jq -e \
+            --arg base "$BASE_SHA" \
+            --arg head "$HEAD_SHA" \
+            '.ref == "refs/heads/main"
+             and .before == $base
+             and .after == $head
+             and .forced == false
+             and .deleted == false
+             and (.commits | length) == 1' \
+            "$GITHUB_EVENT_PATH" >/dev/null
+          test "$(git rev-parse "${HEAD_SHA}^1")" = "$BASE_SHA"
+
+          associated="$RUNNER_TEMP/associated-pulls.json"
+          gh api \
+            -H 'Accept: application/vnd.github+json' \
+            "repos/${GITHUB_REPOSITORY}/commits/${HEAD_SHA}/pulls?per_page=100" \
+            > "$associated"
+
+          mapfile -t pull_rows < <(
+            jq -r \
+              --arg head "$HEAD_SHA" \
+              --arg repository_id "$REPOSITORY_ID" \
+              '.[]
+               | select(.merged_at != null
+                   and .merge_commit_sha == $head
+                   and .base.ref == "main"
+                   and (.base.repo.id | tostring) == $repository_id)
+               | [.number, .base.sha, .head.sha]
+               | @tsv' \
+              "$associated"
+          )
+          if [[ "${#pull_rows[@]}" -ne 1 ]]; then
+            echo "Expected exactly one merged pull request for published head ${HEAD_SHA}; found ${#pull_rows[@]}." >&2
+            exit 1
+          fi
+
+          IFS=$'\t' read -r PULL_REQUEST_NUMBER PR_BASE_SHA PR_HEAD_SHA <<< "${pull_rows[0]}"
+          [[ "$PULL_REQUEST_NUMBER" =~ ^[1-9][0-9]*$ ]]
+          [[ "$PR_BASE_SHA" =~ $sha_re ]]
+          [[ "$PR_HEAD_SHA" =~ $sha_re ]]
+
+          # Bind the candidate bytes even for fork pull requests.  GitHub keeps
+          # the base-repository refs/pull/<n>/head ref for the reviewed head.
+          git cat-file -e "${PR_BASE_SHA}^{commit}" 2>/dev/null \
+            || git fetch --no-tags origin "$PR_BASE_SHA"
+          candidate_ref="refs/remotes/origin/sourcey-pr-${PULL_REQUEST_NUMBER}-head"
+          git fetch --no-tags origin \
+            "refs/pull/${PULL_REQUEST_NUMBER}/head:${candidate_ref}"
+          test "$(git rev-parse "$candidate_ref")" = "$PR_HEAD_SHA"
+
+          checks="$RUNNER_TEMP/sourcey-validation-checks.json"
+          gh api \
+            -H 'Accept: application/vnd.github+json' \
+            "repos/${GITHUB_REPOSITORY}/commits/${PR_HEAD_SHA}/check-runs?filter=latest&per_page=100" \
+            > "$checks"
+          mapfile -t validation_rows < <(
+            jq -r \
+              '.check_runs[]
+               | select(.name == "sourcey/validation"
+                   and .app.slug == "github-actions")
+               | [.id, .status, .conclusion, .external_id]
+               | @tsv' \
+              "$checks"
+          )
+          if [[ "${#validation_rows[@]}" -ne 1 ]]; then
+            echo "Expected exactly one latest GitHub Actions sourcey/validation check; found ${#validation_rows[@]}." >&2
+            exit 1
+          fi
+
+          IFS=$'\t' read -r VALIDATION_CHECK_ID VALIDATION_STATUS VALIDATION_CONCLUSION VALIDATION_EXTERNAL_ID \
+            <<< "${validation_rows[0]}"
+          [[ "$VALIDATION_CHECK_ID" =~ ^[1-9][0-9]*$ ]]
+          test "$VALIDATION_STATUS" = completed
+          test "$VALIDATION_CONCLUSION" = success
+          [[ "$VALIDATION_EXTERNAL_ID" =~ ^sourcey-validation-v1:${PR_BASE_SHA}:${PR_HEAD_SHA}:[0-9a-f]{64}:[0-9a-f]{64}$ ]]
+
+          # Repo policy requires data pull requests to be data-only.  Compare
+          # Git raw deltas so status, old blob, new blob, mode, and path must
+          # all match the exact candidate that sourcey/validation approved.
+          changed_entities=0
+          while IFS= read -r -d '' path; do
+            ((changed_entities += 1))
+            if [[ ! "$path" =~ ^entities/[^/]+/[^/]+\.yaml$ ]]; then
+              echo "Validated pull request contains a non-Entity path: $path" >&2
+              exit 1
+            fi
+          done < <(git diff --name-only -z "$PR_BASE_SHA" "$PR_HEAD_SHA")
+          if [[ "$changed_entities" -eq 0 ]]; then
+            echo "Validated pull request has no Entity delta." >&2
+            exit 1
+          fi
+
+          validated_delta="$RUNNER_TEMP/validated-entity-delta.raw"
+          published_delta="$RUNNER_TEMP/published-entity-delta.raw"
+          git diff --raw --no-renames --full-index \
+            "$PR_BASE_SHA" "$PR_HEAD_SHA" -- entities > "$validated_delta"
+          git diff --raw --no-renames --full-index \
+            "$BASE_SHA" "$HEAD_SHA" -- entities > "$published_delta"
+          if ! cmp -s "$validated_delta" "$published_delta"; then
+            echo "Published Entity status/blob identities differ from the validated pull request." >&2
+            diff -u "$validated_delta" "$published_delta" >&2 || true
+            exit 1
+          fi
+
+          {
+            echo "pull_request_number=$PULL_REQUEST_NUMBER"
+            echo "validated_base_sha=$PR_BASE_SHA"
+            echo "validated_head_sha=$PR_HEAD_SHA"
+            echo "validation_check_id=$VALIDATION_CHECK_ID"
+            echo "validation_external_id=$VALIDATION_EXTERNAL_ID"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Dispatch the exact merged head to Sourcey
         env:
           GH_TOKEN: ${{ secrets.SOURCEY_WORKSPACE_DISPATCH_TOKEN }}
@@ -26,6 +164,7 @@ jobs:
           HEAD_SHA: ${{ github.sha }}
           REPOSITORY_ID: ${{ github.repository_id }}
         run: |
+          set -euo pipefail
           test -n "$GH_TOKEN"
           gh api --method POST repos/sourcey/sourcey-workspace/dispatches \
             -f event_type=startup-credits-merge \
