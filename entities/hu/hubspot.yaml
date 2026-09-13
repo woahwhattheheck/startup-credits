@@ -81,10 +81,10 @@ offers:
         description: HubSpot for Startups requires an annual commitment; product charges remain due after the applicable discount.
       benefits:
         - benefit_id: ben_year_1_discount
-          description: Up to 90% off eligible HubSpot products in year one
+          description: Up to 90% off eligible HubSpot products in year one; final rate is eligibility-dependent.
           kind: discount
           percentage:
-            kind: up-to
+            kind: exact
             basis_points: 9000
         - benefit_id: ben_year_2_discount
           description: 50% off eligible HubSpot products in year two
