@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:35:54.326Z
   category: hosting-infra
 profile:
+  summary: Google Cloud provides cloud infrastructure, data, AI, and developer services for organizations and startups.
   description: Use Google Cloud credits to build and grow your startup business with innovative products and solutions designed for your needs.
   links:
     site: https://cloud.google.com
