@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:36:31.590Z
   category: devtools-other
 profile:
+  summary: GitHub provides code hosting, collaboration, CI/CD, security, and AI-powered developer tools for software teams.
   description: GitHub is an AI-powered developer platform providing code hosting, automated CI/CD workflows, code security, and developer tools.
   links:
     site: https://github.com
@@ -29,18 +30,23 @@ offers:
     offer_slug_aliases:
       - 50-off-with-github-for-startups-year-2
     title: GitHub for Startups Offer
-    summary: Eligible startups receive $10,000 in GitHub credits valid for up to 12 months to use toward GitHub Enterprise licenses, GitHub Copilot, GitHub Advanced Security, and eligible metered products.
+    summary: Eligible partner-affiliated startups receive $10,000 in GitHub credits for up to 12 months across GitHub Enterprise, Copilot, Advanced Security, Actions, and other eligible products.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:36:31.590Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: The cited source does not establish a separate participation charge.
       benefits:
         - benefit_id: ben_primary
-          description: $10,000 in credits
-          kind: other
+          description: $10,000 in flexible GitHub platform credits valid for up to 12 months
+          kind: credit
+          value:
+            kind: exact
+            amount:
+              currency: USD
+              minor_units: 1000000
     eligibility:
       rule:
         kind: manual
