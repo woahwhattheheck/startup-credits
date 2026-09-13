@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:45:12.619Z
   category: hosting-infra
 profile:
+  summary: Cloudflare provides a global developer platform, network, security, compute, storage, and application-delivery services.
   description: Cloudflare offers a developer platform and global network providing security, compute, storage, and performance services to build fast and secure applications.
   links:
     site: https://www.cloudflare.com
@@ -21,6 +22,7 @@ programs:
     program_slug: cloudflare-for-startups
     program_slug_aliases: []
     title: Cloudflare for Startups
+    summary: Cloudflare for Startups provides tiered one-year credits for eligible early-stage technology companies, with higher tiers adding account management and technical support.
     source_ids:
       - src_149b7d73a9ecaa8fe56a5cfe59571a489f490e14e2f9a3c6ecf8ec48c1c1199c
 offers:
@@ -30,23 +32,28 @@ offers:
     offer_slug_aliases:
       - free-cloud-credits-with-cloudflare-for-startups-250-000-usd
     title: Cloudflare for Startups - Tier 1
-    summary: Provides $350,000 in credits valid for one year, priority technical support, account manager, and Solutions Architect office hours for startups with $5M+ raised.
+    summary: Provides $350,000 in credits for one year, including up to $50,000 for Workers AI and up to $10,000 for R2; AI Gateway is currently excluded. Includes priority technical support, an account manager, and Solutions Architect office hours.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:45:12.619Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: The cited source does not establish a separate participation charge.
       benefits:
         - benefit_id: ben_primary
-          description: $350,000 in credits
-          kind: other
+          description: $350,000 in one-year Cloudflare startup credits
+          kind: credit
+          value:
+            kind: up-to
+            amount:
+              currency: USD
+              minor_units: 35000000
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Startups with $5M+ raised, funded by an affiliated partner. Must be incorporated within the last 10 years, building a tech product, and first-time applicant.
+        statement: Must have raised at least $5M, be funded by an affiliated partner, be no more than 10 years old, be funded no later than Series B and within the last 12 months, actively build a technology product, have a public website and active LinkedIn, X, or GitHub presence, be a first-time program applicant, and use a business email matching the company domain.
         reason: not-machine-evaluable
     roles:
       terms_authority_entity_id: ent_01kyh8jtf535570d9z2bng6j1t
@@ -63,23 +70,28 @@ offers:
     offer_slug_aliases:
       - free-cloud-credits-with-cloudflare-for-startups-early-stage-tier
     title: Cloudflare for Startups - Tier 2
-    summary: Provides $100,000 in credits valid for one year, technical sessions, and an account manager for startups with under $5M raised from affiliated partners.
+    summary: Provides $100,000 in credits for one year, including up to $10,000 for Workers AI and up to $10,000 for R2; AI Gateway is currently excluded. Includes technical sessions and case-dependent account management.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:45:12.619Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: The cited source does not establish a separate participation charge.
       benefits:
         - benefit_id: ben_primary
-          description: $100,000 in credits
-          kind: other
+          description: $100,000 in one-year Cloudflare startup credits
+          kind: credit
+          value:
+            kind: up-to
+            amount:
+              currency: USD
+              minor_units: 10000000
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Startups with under $5M raised, funded by an affiliated partner. Must be incorporated within the last 10 years, building a tech product, and first-time applicant.
+        statement: Must have raised under $5M, be funded by an affiliated partner, be no more than 10 years old, be funded no later than Series B and within the last 12 months, actively build a technology product, have a public website and active LinkedIn, X, or GitHub presence, be a first-time program applicant, and use a business email matching the company domain.
         reason: not-machine-evaluable
     roles:
       terms_authority_entity_id: ent_01kyh8jtf535570d9z2bng6j1t
@@ -96,23 +108,28 @@ offers:
     offer_slug_aliases:
       - free-cloud-credits-with-cloudflare-for-startups-bootstrapped-tier
     title: Cloudflare for Startups - Tier 3
-    summary: Provides $10,000 in credits valid for one year to bootstrapped or self-funded early-stage startups with under $1M raised to build and launch products on Cloudflare.
+    summary: Provides $10,000 in credits for one year to bootstrapped or self-funded startups with under $1M raised, including up to $2,500 for Workers AI and up to $10,000 for R2; AI Gateway is currently excluded.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:45:12.619Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: The cited source does not establish a separate participation charge.
       benefits:
         - benefit_id: ben_primary
-          description: $10,000 in credits
-          kind: other
+          description: $10,000 in one-year Cloudflare startup credits
+          kind: credit
+          value:
+            kind: up-to
+            amount:
+              currency: USD
+              minor_units: 1000000
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Bootstrapped or self-funded startups with under $1M raised. Must be incorporated within the last 10 years, building a tech product with a live website, and first-time applicant.
+        statement: Must be bootstrapped or self-funded with under $1M raised, be no more than 10 years old, be funded no later than Series B and within the last 12 months where applicable, actively build a technology product, have a public website and active LinkedIn, X, or GitHub presence, be a first-time program applicant, and use a business email matching the company domain.
         reason: not-machine-evaluable
     roles:
       terms_authority_entity_id: ent_01kyh8jtf535570d9z2bng6j1t

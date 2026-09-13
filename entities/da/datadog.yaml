@@ -10,6 +10,7 @@ entity:
       valid_from: 2026-07-27T07:40:35.276Z
   category: observability
 profile:
+  summary: Datadog provides observability and security monitoring across cloud infrastructure, applications, logs, and related services.
   description: Datadog provides an integrated platform for cloud monitoring and security, offering observability across infrastructure, applications, and logs.
   links:
     site: https://www.datadoghq.com
@@ -22,23 +23,28 @@ offers:
     offer_slug: datadog-for-startups
     offer_slug_aliases: []
     title: Datadog for Startups
-    summary: Datadog for Startups provides early-stage companies up to a year of free access to the complete Datadog platform, providing up to $100,000 in credits.
+    summary: Datadog for Startups provides eligible early-stage companies up to one year of access to the complete Datadog platform with up to $100,000 in credits.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:40:35.276Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: The cited source does not establish a separate participation charge.
       benefits:
         - benefit_id: ben_primary
-          description: Up to $100,000 in credits (up to 1 year free)
-          kind: other
+          description: Up to $100,000 in Datadog credits for up to one year
+          kind: credit
+          value:
+            kind: up-to
+            amount:
+              currency: USD
+              minor_units: 10000000
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Must be Series A or earlier, referred by an official referral partner, and new to Datadog (no current/past customer status or prior DDFS credits).
+        statement: Must be Series A or earlier, referred by an official referral partner, and new to Datadog (no current or prior Datadog customer status and no prior Datadog for Startups credits).
         reason: not-machine-evaluable
     roles:
       terms_authority_entity_id: ent_01kyh8fpe2hwmmvk3eex1hq433
