@@ -10,7 +10,7 @@ entity:
       valid_from: 2026-07-31T23:19:01.190Z
   category: payments-fintech
 profile:
-  description: Stripe provides payments and financial infrastructure to help venture-backed start-ups build, iterate, and scale faster.
+  description: Stripe provides payments and financial infrastructure to help venture-backed startups build, iterate, and scale faster.
   links:
     site: https://stripe.com/startups
 sources:
@@ -23,7 +23,7 @@ programs:
     program_slug: stripe-startup-programme
     program_slug_aliases: []
     title: Stripe Startup Programme
-    summary: Designed to support venture-backed businesses with financial benefits, exclusive discounts, community, and expert resources.
+    summary: A by-application program for early-stage, venture-backed businesses with financial benefits, community, and expert resources.
     source_ids:
       - src_4410dda4d44891aad0cc0b21bb409ed3d27032c5bc1852a256708b3df0b1ff45
 offers:
@@ -32,39 +32,33 @@ offers:
     offer_slug: stripe-startup-programme
     offer_slug_aliases: []
     title: Stripe Startup Programme
-    summary: Provides venture-backed startups with financial benefits including credits to offset Stripe fees and special pricing on Stripe invoices, alongside expert resources and community access.
+    summary: Approved early-stage venture-backed startups receive region- and referral-dependent financial benefits that can include credits to offset Stripe fees or waived processing fees, plus special Stripe Invoicing pricing and founder resources.
     lifecycle:
       status: active
       effective_from: 2026-07-31T23:19:01.190Z
     economics:
       benefits:
         - benefit_id: ben_01
-          description: Credits to offset Stripe fees and special pricing on Stripe invoices
+          description: Region- and referral-dependent fee credits or waived processing fees; Stripe does not publish one universal dollar amount for the program.
           kind: credit
-          value:
-            amount:
-              currency: USD
-              minor_units: 0
-            kind: at-least
+        - benefit_id: ben_02
+          description: Special Stripe Invoicing pricing, including an exclusive per-invoice cap where offered.
+          kind: other
       consideration:
         kind: none
     eligibility:
       rule:
+        kind: manual
         criterion_id: cri_01
-        fact: company.stage
-        kind: predicate
-        operator: eq
-        statement: Must be a venture-backed business
-        value:
-          type: string
-          value: venture-backed
+        statement: Designed for early-stage, venture-backed companies; applications require Stripe approval and financial benefit type and amount can vary by country and referral source.
+        reason: external-verification
     roles:
       terms_authority_entity_id: ent_01kyygma830fqh16kvj744sk1c
       access_operator_entity_id: ent_01kyygma830fqh16kvj744sk1c
     access:
       availability: public
       method: form
-      url: https://stripe.com/au/startups
+      url: https://stripe.com/startups
     source_ids:
       - src_4410dda4d44891aad0cc0b21bb409ed3d27032c5bc1852a256708b3df0b1ff45
   - offer_id: off_01kyyr9svgdkega07z9phrrjdn
