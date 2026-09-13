@@ -202,12 +202,12 @@ jobs:
           external_id="sourcey-validation-v2:${policy_binding_digest}:${identity_context_digest}"
           details_url="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
           checks="$RUNNER_TEMP/sourcey-validation-checks.json"
-          gh api --method GET \
+          gh api --paginate --slurp --method GET \
             "repos/${GITHUB_REPOSITORY}/commits/${HEAD_REVISION}/check-runs" \
-            -f filter=latest -F per_page=100 > "$checks"
+            -f filter=all -F per_page=100 > "$checks"
           mapfile -t existing_ids < <(
             jq -er --arg external_id "$external_id" \
-              '.check_runs[]
+              '.[] | .check_runs[]
                | select(.name == "sourcey/validation"
                    and .app.slug == "github-actions"
                    and .external_id == $external_id)
