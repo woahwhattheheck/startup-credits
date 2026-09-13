@@ -21,6 +21,7 @@ programs:
     program_slug: hubspot-for-startups
     program_slug_aliases: []
     title: HubSpot for Startups
+    summary: Eligible startups receive discounted HubSpot Professional or Enterprise products plus startup-focused training, resources, and community access; discount level depends on funding and partner eligibility.
     source_ids:
       - src_83aaa60afc6a964ea3f86b6ccba6e5463e7a982f4581229ffa57b91136d1977a
 offers:
@@ -29,27 +30,33 @@ offers:
     offer_slug: hubspot-for-startups-30-off
     offer_slug_aliases: []
     title: HubSpot for Startups - 30% Off
-    summary: HubSpot offers startups associated with approved entrepreneurial organizations 30% off in year one and 15% off in year two on net-new Professional or Enterprise level products.
+    summary: Eligible startups associated with an approved entrepreneurial organization receive 30% off in year one and 15% off in year two on eligible HubSpot Professional or Enterprise products.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:41:23.118Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: HubSpot for Startups requires an annual commitment; product charges remain due after the applicable discount.
       benefits:
-        - benefit_id: ben_primary
-          description: 30% off year 1, 15% off year 2
+        - benefit_id: ben_year_1_discount
+          description: 30% off eligible HubSpot products in year one
           kind: discount
           percentage:
             kind: exact
             basis_points: 3000
+        - benefit_id: ben_year_2_discount
+          description: 15% off eligible HubSpot products in year two
+          kind: discount
+          percentage:
+            kind: exact
+            basis_points: 1500
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Must be associated with an approved entrepreneurial organization.
-        reason: not-machine-evaluable
+        statement: Must qualify through an approved HubSpot entrepreneurial organization or other accepted startup route; final eligibility and applicable products are verified by HubSpot.
+        reason: external-verification
     roles:
       terms_authority_entity_id: ent_01kyh8fpe3new9gxd18qs3bskh
       access_operator_entity_id: ent_01kyh8fpe3new9gxd18qs3bskh
@@ -64,27 +71,39 @@ offers:
     offer_slug: hubspot-for-startups-up-to-90-off
     offer_slug_aliases: []
     title: HubSpot for Startups - Up to 90% Off
-    summary: HubSpot offers eligible startups that have raised Pre-seed, Seed, or Series A funding up to 90% off in year one, 50% off in year two, and 25% off in year three on net-new Professional or Enterprise level products.
+    summary: Eligible Pre-seed, Seed, or Series A startups can receive up to 90% off in year one, 50% off in year two, and 25% off in year three on eligible HubSpot Professional or Enterprise products.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:41:23.118Z
     economics:
       consideration:
         kind: unknown
-        description: The source record did not establish separate consideration.
+        description: HubSpot for Startups requires an annual commitment; product charges remain due after the applicable discount.
       benefits:
-        - benefit_id: ben_primary
-          description: 90% off year 1, 50% off year 2, 25% off year 3
+        - benefit_id: ben_year_1_discount
+          description: Up to 90% off eligible HubSpot products in year one
+          kind: discount
+          percentage:
+            kind: up-to
+            basis_points: 9000
+        - benefit_id: ben_year_2_discount
+          description: 50% off eligible HubSpot products in year two
           kind: discount
           percentage:
             kind: exact
-            basis_points: 9000
+            basis_points: 5000
+        - benefit_id: ben_year_3_discount
+          description: 25% off eligible HubSpot products in year three
+          kind: discount
+          percentage:
+            kind: exact
+            basis_points: 2500
     eligibility:
       rule:
         kind: manual
         criterion_id: cri_requirement_01
-        statement: Must have raised Pre-seed, Seed, or Series A funding (not Series B or later), and be affiliated with an approved partner or have verified venture funding.
-        reason: not-machine-evaluable
+        statement: Must have raised Pre-seed, Seed, or Series A funding and not Series B or later, and qualify through an approved HubSpot for Startups partner or verified venture-funding route; final discount level is determined by HubSpot.
+        reason: external-verification
     roles:
       terms_authority_entity_id: ent_01kyh8fpe3new9gxd18qs3bskh
       access_operator_entity_id: ent_01kyh8fpe3new9gxd18qs3bskh
