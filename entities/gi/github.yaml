@@ -30,7 +30,7 @@ offers:
     offer_slug_aliases:
       - 50-off-with-github-for-startups-year-2
     title: GitHub for Startups Offer
-    summary: Eligible partner-affiliated startups receive $10,000 in GitHub credits for up to 12 months across GitHub Enterprise, Copilot, Advanced Security, Actions, and other eligible products.
+    summary: Eligible startups receive $10,000 in GitHub credits valid for up to 12 months to use toward GitHub Enterprise licenses, GitHub Copilot, GitHub Advanced Security, and eligible metered products.
     lifecycle:
       status: active
       effective_from: 2026-07-27T07:36:31.590Z
@@ -43,7 +43,7 @@ offers:
           description: $10,000 in flexible GitHub platform credits valid for up to 12 months
           kind: credit
           value:
-            kind: exact
+            kind: up-to
             amount:
               currency: USD
               minor_units: 1000000
